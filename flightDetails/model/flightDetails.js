@@ -28,7 +28,7 @@ class FlightDetails {
             const flightDetails = await getFlightDetails(flightNumber);
             return FlightDetails.create(flightDetails);
         } catch (error) {
-            console.log(error);
+            return 'something went wrong. Try another flight code';
         }
     }
 }
