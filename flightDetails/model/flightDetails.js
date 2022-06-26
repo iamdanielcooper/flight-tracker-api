@@ -16,5 +16,9 @@ class FlightDetails {
      this.arrivalTime = "09:30"
     }
 
-    static getFlightDetails(flightNumber) {}
+    static getFlightDetails(flightNumber) {
+        return `Thanks for requesting flight ${flightNumber}`
+    }
 }
+
+module.exports = FlightDetails;
