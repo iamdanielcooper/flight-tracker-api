@@ -8,7 +8,7 @@ const getElementText = async (page, selector) => {
 const getFlightDetails = async flightNumber => {
     const url = 'https://uk.flightaware.com/live/flight/' + flightNumber;
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
     await page.goto(url);
     // let consent = await page.$(".flightPageSummaryCity")
