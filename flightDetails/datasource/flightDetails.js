@@ -38,11 +38,23 @@ const getFlightDetails = async flightNumber => {
             page,
             '#flightPageTourStep1 > div.flightPageProgressContainer > div.flightPageProgressDistance > span.flightPageProgressDistanceElapsed.flightPageProgressDistanceDesc > strong'
         );
+
+        flightInfo.milesFlown = flightInfo.milesFlown.replace(' mi', '');
+        flightInfo.milesFlown = flightInfo.milesFlown.replace(',', '');
+        flightInfo.milesFlown = parseInt(flightInfo.milesFlown);
+
         flightInfo.milesRemaining = await getElementText(
             page,
             '#flightPageTourStep1 > div.flightPageProgressContainer > div.flightPageProgressDistance > span.flightPageProgressDistanceRemaining.flightPageProgressDistanceDesc > strong'
         );
-        // const percentComplete = await getElementText(page, "tbc");
+
+        flightInfo.milesRemaining = flightInfo.milesRemaining.replace(' mi', '');
+        flightInfo.milesRemaining = flightInfo.milesRemaining.replace(',', '');
+        flightInfo.milesRemaining = parseInt(flightInfo.milesRemaining);
+
+        flightInfo.totalFlightDistance = flightInfo.milesFlown + flightInfo.milesRemaining;
+
+        flightInfo.percentComplete = Math.ceil((flightInfo.milesFlown / flightInfo.totalFlightDistance) * 100);
     } else {
         flightInfo.milesFlown = null;
         flightInfo.milesRemaining = null;
@@ -53,10 +65,18 @@ const getFlightDetails = async flightNumber => {
         page,
         '#flightPageTourStep1 > div.flightPageSummaryTimes > div.flightPageSummaryOrigin > span.flightPageSummaryDeparture.flightTime'
     );
+
+    flightInfo.departureTime = flightInfo.departureTime
+        .replace(/(\r\n|\n|\r|\t)/gm, '')
+        .replace(/(?<=\d{2}:\d{2}).*/, '');
+
     flightInfo.arrivalTime = await getElementText(
         page,
         '#flightPageTourStep1 > div.flightPageSummaryTimes > div.flightPageSummaryDestination > span.flightPageSummaryArrival.flightTime > em'
     );
+
+    flightInfo.arrivalTime = flightInfo.arrivalTime.replace(/(\r\n|\n|\r|\t)/gm, '').replace(/(?<=\d{2}:\d{2}).*/, '');
+
     await browser.close();
 
     return flightInfo;

@@ -11,8 +11,9 @@ class FlightDetails {
         this.destinationName = data.destinationName.split(' -')[0];
         this.destinationCode = data.destinationCode;
         this.flightTime = data.flightTime.replace(' total travel time', '');
-        this.milesFlown = data.milesFlown.replace(' mi', '');
-        this.milesRemaining = data.milesRemaining.replace(' mi', '');
+        this.milesFlown = data.milesFlown;
+        this.milesRemaining = data.milesRemaining;
+        this.totalFlightDistance = data.totalFlightDistance;
         this.percentComplete = data.percentComplete;
         this.departureTime = data.departureTime;
         this.arrivalTime = data.arrivalTime;
