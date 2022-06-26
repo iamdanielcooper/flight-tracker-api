@@ -1,23 +1,30 @@
+const { getFlightDetails } = require('../datasource/flightDetails');
+
 class FlightDetails {
-    constructor() {
-     this.status = "en route",
-     this.flightCode = "DC2812",
-     this.departedCity = "London"
-     this.departedName = "Heathrow",
-     this.departedCode = "LHR"
-     this.destinationCity = "New York City",
-     this.destinationName = "John F. Kennedy Airport",
-     this.destinationCode = "JFK"
-     this.flightTime = 1234,
-     this.milesFlown = 123,
-     this.milesRemaining = 123,
-     this.percentComplete = .5,
-     this.departureTime = "05:21",
-     this.arrivalTime = "09:30"
+    constructor(data) {
+        this.status = data.status;
+        this.flightCode = data.flightCode;
+        this.departedCity = data.departedCity;
+        this.departedName = data.departedName.split(' -')[0];
+        this.departedCode = data.departedCode;
+        this.destinationCity = data.destinationCity;
+        this.destinationName = data.destinationName.split(' -')[0];
+        this.destinationCode = data.destinationCode;
+        this.flightTime = data.flightTime.replace(' total travel time', '');
+        this.milesFlown = data.milesFlown.replace(' mi', '');
+        this.milesRemaining = data.milesRemaining.replace(' mi', '');
+        this.percentComplete = data.percentComplete;
+        this.departureTime = data.departureTime;
+        this.arrivalTime = data.arrivalTime;
     }
 
-    static getFlightDetails(flightNumber) {
-        return `Thanks for requesting flight ${flightNumber}`
+    static create(flightInfo) {
+        return new FlightDetails(flightInfo);
+    }
+
+    static async getFlightDetails(flightNumber) {
+        const flightDetails = await getFlightDetails(flightNumber);
+        return FlightDetails.create(flightDetails);
     }
 }
 

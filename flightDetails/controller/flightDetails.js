@@ -1,11 +1,10 @@
-const FlightDetails = require('../model/flightDetails')
+const FlightDetails = require('../model/flightDetails');
 
-const getFlightDetailsByFlightNumber = (req, res) => {
-    const flightDetails =
-        FlightDetails.getFlightDetails(req.params.flightNumber);
-        
+const getFlightDetailsByFlightNumber = async (req, res) => {
+    const flightDetails = await FlightDetails.getFlightDetails(req.params.flightNumber);
+
     // TODO add error handling.
-    res.status(200).send(flightDetails)
-}
+    res.status(200).send(flightDetails);
+};
 
-module.exports = {getFlightDetailsByFlightNumber}
+module.exports = { getFlightDetailsByFlightNumber };
