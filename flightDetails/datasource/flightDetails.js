@@ -18,7 +18,7 @@ const getFlightDetails = async flightNumber => {
     const flightInfo = {};
 
     flightInfo.status = await getElementText(page, '.flightPageSummaryStatus');
-    // flightInfo.flightCode = await getElementText(page, "tbc");
+    flightInfo.flightCode = flightNumber;
     flightInfo.departedCity = await getElementText(page, '.flightPageSummaryCity');
     flightInfo.departedName = await getElementText(page, '.flightPageSummaryAirportLink');
     flightInfo.departedCode = await getElementText(page, '.flightPageSummaryAirportLink strong');

@@ -24,8 +24,12 @@ class FlightDetails {
     }
 
     static async getFlightDetails(flightNumber) {
-        const flightDetails = await getFlightDetails(flightNumber);
-        return FlightDetails.create(flightDetails);
+        try {
+            const flightDetails = await getFlightDetails(flightNumber);
+            return FlightDetails.create(flightDetails);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
