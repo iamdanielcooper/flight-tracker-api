@@ -57,9 +57,6 @@ const getFlightDetails = async flightNumber => {
         page,
         '#flightPageTourStep1 > div.flightPageSummaryTimes > div.flightPageSummaryDestination > span.flightPageSummaryArrival.flightTime > em'
     );
-
-    await page.screenshot({ path: 'example.png' });
-
     await browser.close();
 
     return flightInfo;
