@@ -14,6 +14,7 @@ const getFlightCodeForNextDepartureFrom = async airportCode => {
 
     const nextFlightSelector = '#departures-board > div > table > tbody td.flight-ident';
     const nextDepartingFlight = await getElementText(page, nextFlightSelector);
+    page.close();
 
     return nextDepartingFlight;
 };
