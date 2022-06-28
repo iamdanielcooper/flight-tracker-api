@@ -25,7 +25,7 @@ const getFlightDetails = async flightNumber => {
     // If the user doesn't pass a flight number, get the next departure from selected airport.
     let url;
     if (!flightNumber) {
-        const trackedAirports = ['EGLL', 'RJTT'];
+        const trackedAirports = ['EGLL'];
         const airport = trackedAirports[Math.floor(Math.random() * trackedAirports.length)];
         flightNumber = await getFlightCodeForNextDepartureFrom(airport);
     }
