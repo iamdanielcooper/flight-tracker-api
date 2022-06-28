@@ -5,15 +5,32 @@ const getElementText = async (page, selector) => {
     return await element.evaluate(el => el.textContent.trim());
 };
 
-const getFlightDetails = async flightNumber => {
-    const url = 'https://uk.flightaware.com/live/flight/' + flightNumber;
+const getFlightCodeForNextDepartureFrom = async airportCode => {
+    const url = 'https://uk.flightaware.com/live/airport/' + airportCode;
 
     const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
     await page.goto(url);
-    // let consent = await page.$(".flightPageSummaryCity")
-    // .$("button")[0]
-    // console.log(consent.getProperties);
+
+    const nextFlightSelector = '#departures-board > div > table > tbody td.flight-ident';
+    const nextDepartingFlight = await getElementText(page, nextFlightSelector);
+
+    return nextDepartingFlight;
+};
+
+const getFlightDetails = async flightNumber => {
+    const baseUrl = 'https://uk.flightaware.com/live/flight/';
+
+    // If the user doesn't pass a flight number, get the next departure from selected airport.
+    let url;
+    if (!flightNumber) {
+        flightNumber = await getFlightCodeForNextDepartureFrom('EGLL');
+    }
+    url = baseUrl + flightNumber;
+
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const page = await browser.newPage();
+    await page.goto(url);
 
     const flightInfo = {};
 
