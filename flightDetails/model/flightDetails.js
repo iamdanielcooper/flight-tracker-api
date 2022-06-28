@@ -17,6 +17,7 @@ class FlightDetails {
         this.percentComplete = data.percentComplete;
         this.departureTime = data.departureTime;
         this.arrivalTime = data.arrivalTime;
+        this.formattedFlightInformation = `${this.flightCode}: ${this.departedCity} -> ${this.destinationCity}`;
     }
 
     static create(flightInfo) {
