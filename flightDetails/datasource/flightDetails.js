@@ -37,6 +37,11 @@ const getFlightDetails = async flightNumber => {
 
     const flightInfo = {};
 
+    //TODO - Error handling.
+    // - does the page return an error.
+    // - is some of the data we're trying to find missing.
+    // - Get the flights status and then return the relevant data
+
     flightInfo.status = await getElementText(page, '.flightPageSummaryStatus');
     flightInfo.flightCode = flightNumber;
     flightInfo.departedCity = await getElementText(page, '.flightPageSummaryCity');
